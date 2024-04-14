@@ -1,0 +1,442 @@
+Local Here(
+	New Window( "DOE - Custom Design",
+		V List Box(
+			Outline Box( "Custom Design",
+				Outline Box( "Responses", H List Box() ),
+				Outline Box( "Factors",
+					H List Box( Text Box( "Add N Factors  " ) ),
+					Outline Box( "Covariate/Candidate Runs",
+						V List Box(
+							Text Box(
+								"Load a set of candidate runs for covariates from the current data table."
+							)
+						)
+					)
+				),
+				Outline Box( "Define Factor Constraints",
+					V List Box(
+						Panel Box( "Linear Constraints",
+							V List Box( V List Box( H List Box( H List Box() ) ) )
+						),
+						Panel Box( "Disallowed Combinations Expression",
+							V List Box(
+								H List Box(
+									Text Box(
+										"For categorical factors, specify levels using their ordinal values."
+									)
+								),
+								Scroll Box( Size( 500, 100 ) )
+							)
+						),
+						<<Enabled( 0 )
+					)
+				),
+				Outline Box( "Model", H List Box( <<Enabled( 0 ) ), <<Close( 1 ) ),
+				Outline Box( "Alias Terms",
+					H List Box( <<Enabled( 0 ) ),
+					<<Close( 0 )
+				),
+				Outline Box( "Design", V List Box() ),
+				Outline Box( "Design Evaluation",
+					V List Box(
+						Outline Box( "Power Analysis",
+							V List Box(
+								Text Box( "Significance Level" ),
+								Text Box( "Anticipated RMSE" )
+							),
+							V List Box(),
+							V List Box(),
+							Outline Box( "Design and Anticipated Responses",
+								V List Box()
+							)
+						),
+						Outline Box( "Prediction Variance Profile",
+							V List Box(
+								H List Box(
+									Text Box( "" ),
+									Text Box( " --Possible Extrapolation--" )
+								),
+								V List Box(
+									V List Box(),
+									Text Box(
+										"The metric is the  at the factor settings. The threshold is ."
+									)
+								)
+							),
+							V List Box(
+								H List Box(
+									V List Box(
+										V List Box(
+											Text Box( "Variance" ),
+											V List Box( Text Box( "0.621673" ) )
+										),
+										V List Box(
+											Text Box( "Desirability" ),
+											Text Box( "0" )
+										)
+									),
+									V List Box(
+										V List Box(
+											Text Box( "Rainwater Harvesting" ),
+											V List Box(
+												Text Box( "Decentralized Water" ),
+												Text Box( "System (DWS) Type" )
+											)
+										)
+									),
+									V List Box(
+										V List Box(
+											V List Box(
+												Text Box( "One-off DWS" ),
+												Text Box( "Installation Cost" )
+											)
+										)
+									),
+									V List Box(
+										V List Box(
+											Text Box( "Non-potable" ),
+											V List Box(
+												Text Box( "DWS Water" ),
+												Text Box( "Safety" )
+											)
+										)
+									),
+									V List Box(
+										V List Box(
+											Text Box( "Shorter" ),
+											V List Box(
+												Text Box( "DWS System" ),
+												Text Box( "Lifespan" )
+											)
+										)
+									),
+									V List Box(
+										V List Box(
+											Text Box( "No" ),
+											V List Box(
+												Text Box( "DWS Community" ),
+												Text Box( "Choice" )
+											)
+										)
+									),
+									V List Box(
+										V List Box(
+											V List Box(
+												Text Box( "DWS Water" ),
+												Text Box( "Bill Saving" )
+											)
+										)
+									),
+									V List Box( Text Box( "Desirability" ) ),
+									V List Box()
+								)
+							)
+						),
+						Outline Box( "Fraction of Design Space Plot",
+							H List Box(
+								Text Box( "Prediction Variance" ),
+								V List Box( Text Box( "Fraction of Space" ) )
+							)
+						),
+						Outline Box( "Prediction Variance Surface",
+							V List Box(
+								H List Box(
+									Text Box( " " ),
+									V List Box(
+										Outline Box( "Response Grid Slider",
+											H List Box()
+										),
+										Outline Box( "Independent Variables",
+											V List Box(
+												V List Box(
+													V List Box( Text Box( "X" ) ),
+													V List Box( Text Box( "Y" ) ),
+													V List Box( Text Box( "Z" ) ),
+													V List Box(
+														Text Box( "Grid" ),
+														Text Box( " " ),
+														Text Box( " " ),
+														Text Box( " " ),
+														Text Box( " " )
+													)
+												)
+											)
+										),
+										Outline Box( "Appearance",
+											V List Box(
+												H List Box(),
+												H List Box(
+													Text Box( "Contour" ),
+													Text Box( "   " )
+												),
+												Text Box( "   " )
+											)
+										)
+									)
+								)
+							)
+						),
+						Outline Box( "Estimation Efficiency", V List Box() ),
+						Outline Box( "Alias Matrix", V List Box() ),
+						Outline Box( "Color Map on Correlations",
+							V List Box( H List Box( V List Box() ) ),
+							Text Box( " " )
+						),
+						Outline Box( "Design Diagnostics",
+							V List Box(
+								Text Box( "D Optimal Design" ),
+								V List Box(
+									Text Box( "D Efficiency" ),
+									V List Box(),
+									Text Box( "G Efficiency" ),
+									V List Box(),
+									Text Box( "A Efficiency" ),
+									V List Box(),
+									Text Box( "Average Variance of Prediction" ),
+									V List Box(),
+									Text Box( "Design Creation Time (seconds)" ),
+									V List Box()
+								)
+							)
+						)
+					)
+				),
+				Panel Box( "Output Options", V List Box() )
+			)
+		)
+	) << Move Window( 122, 22 ) << Size Window( 731, 914 ) << Maximize Display <<
+	Set Window Icon( "DOptim" );
+	table1 = Open( "C:\Users\jhcwgtang\Downloads\DCE_Residential_Owners.jmp" );
+	(table2 = New Table( "Custom Design",
+		Add Rows( 24 ),
+		New Table Variable( "Design", "Custom Design" ),
+		New Table Variable( "Criterion", "D Optimal" ),
+		New Script(
+			"Model",
+			Fit Model(
+				Effects(
+					:Random Block & Random,
+					:"Decentralized Water System (DWS) Type"n,
+					:"One-off DWS Installation Cost"n,
+					:"One-off DWS Installation Cost"n *
+					:"One-off DWS Installation Cost"n, :DWS Water Safety,
+					:DWS System Lifespan, :DWS Community Choice,
+					:DWS Water Bill Saving,
+					:DWS Water Bill Saving * :DWS Water Bill Saving
+				),
+				Y( :Y )
+			)
+		),
+		New Script(
+			"Evaluate Design",
+			DOE(
+				Evaluate Design,
+				X(
+					:Random Block, :"Decentralized Water System (DWS) Type"n,
+					:"One-off DWS Installation Cost"n, :DWS Water Safety,
+					:DWS System Lifespan, :DWS Community Choice,
+					:DWS Water Bill Saving
+				)
+			)
+		),
+		New Script(
+			"Fit Mixed",
+			Fit Model(
+				Y( :Y ),
+				Random Effects( :Random Block ),
+				Effects(
+					:"Decentralized Water System (DWS) Type"n,
+					:"One-off DWS Installation Cost"n,
+					:"One-off DWS Installation Cost"n *
+					:"One-off DWS Installation Cost"n, :DWS Water Safety,
+					:DWS System Lifespan, :DWS Community Choice,
+					:DWS Water Bill Saving,
+					:DWS Water Bill Saving * :DWS Water Bill Saving
+				),
+				NoBounds( 1 ),
+				Personality( "Mixed Model" ),
+				Run
+			)
+		),
+		New Script(
+			"DOE Dialog",
+			DOE(
+				Custom Design,
+				{Add Response( Maximize, "Y", ., ., . ),
+				Add Factor(
+					Categorical,
+					{"Rainwater Harvesting", "Greywater Recycling",
+					"Wastewater Reuse"},
+					"Decentralized Water System (DWS) Type",
+					0
+				), Add Factor(
+					Discrete Numeric,
+					{250, 500, 750, 1000},
+					"One-off DWS Installation Cost",
+					0,
+					"HKD"
+				), Add Factor(
+					Categorical,
+					{"Non-potable", "Potable"},
+					"DWS Water Safety",
+					0
+				), Add Factor(
+					Categorical,
+					{"Shorter", "Moderate", "Longer"},
+					"DWS System Lifespan",
+					0
+				), Add Factor(
+					Categorical,
+					{"No", "Some", "Many"},
+					"DWS Community Choice",
+					0
+				), Add Factor(
+					Discrete Numeric,
+					{250, 500, 750, 1000},
+					"DWS Water Bill Saving",
+					0,
+					"HKD"
+				), Set Random Seed( 7743301 ), Number of Starts( 390 ),
+				Add Term( {1, 0} ), Add Term( {1, 1} ), Add Term( {2, 1} ),
+				Add Potential Term( {2, 2} ), Add Potential Term( {2, 3} ),
+				Add Term( {3, 1} ), Add Term( {4, 1} ), Add Term( {5, 1} ),
+				Add Term( {6, 1} ), Add Potential Term( {6, 2} ),
+				Add Potential Term( {6, 3} ), Add Alias Term( {1, 1}, {2, 1} ),
+				Add Alias Term( {1, 1}, {3, 1} ), Add Alias Term( {1, 1}, {4, 1} ),
+				Add Alias Term( {1, 1}, {5, 1} ), Add Alias Term( {1, 1}, {6, 1} ),
+				Add Alias Term( {2, 1}, {3, 1} ), Add Alias Term( {2, 1}, {4, 1} ),
+				Add Alias Term( {2, 1}, {5, 1} ), Add Alias Term( {2, 1}, {6, 1} ),
+				Add Alias Term( {3, 1}, {4, 1} ), Add Alias Term( {3, 1}, {5, 1} ),
+				Add Alias Term( {3, 1}, {6, 1} ), Add Alias Term( {4, 1}, {5, 1} ),
+				Add Alias Term( {4, 1}, {6, 1} ), Add Alias Term( {5, 1}, {6, 1} ),
+				Set Runs Per Random Block( 2 ), Set Sample Size( 24 ),
+				Optimality Criterion( "Make D-Optimal Design" ),
+				Simulate Responses( 0 ), Save X Matrix( 0 ), Make Design}
+			)
+		),
+		New Column( "Random Block",
+			Character,
+			"Nominal",
+			Set Property( "Design Role", DesignRole( Random Block ) ),
+			Set Property(
+				"Value Order",
+				{Custom Order(
+					{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}
+				)}
+			),
+			Set Selected,
+			Set Values(
+				{"1", "1", "2", "2", "3", "3", "4", "4", "5", "5", "6", "6", "7",
+				"7", "8", "8", "9", "9", "10", "10", "11", "11", "12", "12"}
+			)
+		),
+		New Column( "Decentralized Water System (DWS) Type",
+			Character,
+			"Nominal",
+			Set Property(
+				"Value Order",
+				{Custom Order(
+					{"Rainwater Harvesting", "Greywater Recycling",
+					"Wastewater Reuse"}
+				)}
+			),
+			Set Property( "Design Role", DesignRole( Categorical ) ),
+			Set Property( "Factor Changes", Easy ),
+			Set Values(
+				{"Rainwater Harvesting", "Greywater Recycling", "Wastewater Reuse",
+				"Greywater Recycling", "Wastewater Reuse", "Rainwater Harvesting",
+				"Rainwater Harvesting", "Wastewater Reuse", "Greywater Recycling",
+				"Wastewater Reuse", "Greywater Recycling", "Rainwater Harvesting",
+				"Greywater Recycling", "Rainwater Harvesting",
+				"Rainwater Harvesting", "Wastewater Reuse", "Greywater Recycling",
+				"Wastewater Reuse", "Rainwater Harvesting", "Greywater Recycling",
+				"Rainwater Harvesting", "Greywater Recycling", "Greywater Recycling",
+				"Wastewater Reuse"}
+			)
+		),
+		New Column( "One-off DWS Installation Cost",
+			Numeric,
+			"Continuous",
+			Format( "Best", 12 ),
+			Set Property( "Coding", {250, 1000} ),
+			Set Property( "Design Role", DesignRole( Discrete Numeric ) ),
+			Set Property( "Factor Changes", Easy ),
+			Set Property( "Units", "HKD" ),
+			Set Values(
+				[750, 250, 500, 1000, 1000, 250, 500, 1000, 750, 250, 500, 1000, 750,
+				250, 1000, 250, 1000, 500, 750, 250, 250, 1000, 250, 1000]
+			)
+		),
+		New Column( "DWS Water Safety",
+			Character,
+			"Nominal",
+			Set Property(
+				"Value Order",
+				{Custom Order( {"Non-potable", "Potable"} )}
+			),
+			Set Property( "Design Role", DesignRole( Categorical ) ),
+			Set Property( "Factor Changes", Easy ),
+			Set Values(
+				{"Non-potable", "Potable", "Non-potable", "Potable", "Non-potable",
+				"Potable", "Non-potable", "Potable", "Non-potable", "Potable",
+				"Potable", "Non-potable", "Potable", "Non-potable", "Potable",
+				"Non-potable", "Non-potable", "Potable", "Potable", "Non-potable",
+				"Potable", "Non-potable", "Non-potable", "Potable"}
+			)
+		),
+		New Column( "DWS System Lifespan",
+			Character,
+			"Nominal",
+			Set Property(
+				"Value Order",
+				{Custom Order( {"Shorter", "Moderate", "Longer"} )}
+			),
+			Set Property( "Design Role", DesignRole( Categorical ) ),
+			Set Property( "Factor Changes", Easy ),
+			Set Values(
+				{"Shorter", "Moderate", "Longer", "Moderate", "Shorter", "Longer",
+				"Moderate", "Longer", "Moderate", "Shorter", "Longer", "Moderate",
+				"Shorter", "Longer", "Shorter", "Moderate", "Longer", "Moderate",
+				"Longer", "Shorter", "Shorter", "Longer", "Shorter", "Moderate"}
+			)
+		),
+		New Column( "DWS Community Choice",
+			Character,
+			"Nominal",
+			Set Property( "Value Order", {Custom Order( {"No", "Some", "Many"} )} ),
+			Set Property( "Design Role", DesignRole( Categorical ) ),
+			Set Property( "Factor Changes", Easy ),
+			Set Values(
+				{"Many", "Some", "No", "Many", "Some", "No", "Many", "No", "No",
+				"Many", "Many", "No", "No", "Some", "Some", "Many", "Many", "Some",
+				"Some", "No", "No", "Some", "Some", "Many"}
+			)
+		),
+		New Column( "DWS Water Bill Saving",
+			Numeric,
+			"Continuous",
+			Format( "Best", 12 ),
+			Set Property( "Coding", {250, 1000} ),
+			Set Property( "Design Role", DesignRole( Discrete Numeric ) ),
+			Set Property( "Factor Changes", Easy ),
+			Set Property( "Units", "HKD" ),
+			Set Values(
+				[250, 750, 750, 250, 1000, 250, 750, 250, 1000, 500, 1000, 500, 500,
+				1000, 750, 250, 750, 250, 500, 1000, 1000, 500, 250, 1000]
+			)
+		),
+		New Column( "Y",
+			Numeric,
+			"Continuous",
+			Format( "Best", 12 ),
+			Set Property(
+				"Response Limits",
+				{Goal( Maximize ), Lower( . ), Upper( . ), Importance( . )}
+			),
+			Set Values(
+				[., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., ., .,
+				.]
+			)
+		)
+	)) << Run Formulas;
+)
