@@ -1,1 +1,2 @@
-# CIVL5640
+# CIVL5640 - Discrete Choice Experiments and Data Analysis 
+This section provides JMP code for designing Discrete Choice Experiments (DCE) using a D-optimal design framework. D-optimal designs are used to minimize the generalization error in estimating model parameters, making them highly efficient for statistical analysis of choice data. The code snippet facilitates the creation of experimental layouts where each choice set is optimized for maximum statistical efficiency, based on the specified attributes and levels. This approach is particularly useful in maximizing the information gained from the responses with a minimal number of observations.
